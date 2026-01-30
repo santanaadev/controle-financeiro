@@ -22,7 +22,7 @@ public class Main {
             System.out.println("3 - Total geral");
             System.out.println("4 - Total por categoria");
             System.out.println("0 - Salvar e sair");
-            System.out.print("Escolha uma opção: ");
+            System.out.print("\nEscolha uma opção: ");
 
             opcao = scanner.nextInt();
             scanner.nextLine();
@@ -64,6 +64,7 @@ public class Main {
                     break;
 
                 case 0:
+                    service.salvarGastos();
                     System.out.println("💾 Gastos salvos. Encerrando...");
                     break;
 

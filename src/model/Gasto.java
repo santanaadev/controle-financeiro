@@ -1,5 +1,8 @@
 package model;
 
+import java.text.Normalizer;
+import java.util.Locale;
+
 public class Gasto {
     private double valor;
     private String categoria;
@@ -8,13 +11,20 @@ public class Gasto {
         if (valor <= 0) {
             throw new IllegalArgumentException("O valor do gasto deve ser maior que zero");
         }
+        if (categoria == null || categoria.trim().isEmpty()) {
+            throw new IllegalArgumentException("A categoria do gasto não pode ser vazia");
+        }
         this.valor = valor;
-        this.categoria = categoria;
+        this.categoria = normalize(categoria);
     }
 
     public void listarGasto () {
-        System.out.println("Categoria: " + categoria);
-        System.out.println("Valor: R$ " + valor);
+        System.out.println(this.toString());
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria: " + categoria + System.lineSeparator() + "Valor: R$ " + String.format("%.2f", valor);
     }
 
     public double getValor() {
@@ -22,6 +32,9 @@ public class Gasto {
     }
 
     public void setValor(double valor) {
+        if (valor <= 0) {
+            throw new IllegalArgumentException("O valor do gasto deve ser maior que zero");
+        }
         this.valor = valor;
     }
 
@@ -30,6 +43,17 @@ public class Gasto {
     }
 
     public void setCategoria(String categoria) {
-        this.categoria = categoria;
+        if (categoria == null || categoria.trim().isEmpty()) {
+            throw new IllegalArgumentException("A categoria do gasto não pode ser vazia");
+        }
+        this.categoria = normalize(categoria);
+    }
+
+    // Normaliza uma string removendo acentos e convertendo para minúsculas
+    private static String normalize(String s) {
+        if (s == null) return "";
+        String n = Normalizer.normalize(s, Normalizer.Form.NFD);
+        n = n.replaceAll("\\p{M}", "");
+        return n.toLowerCase(Locale.ROOT).trim();
     }
 }
