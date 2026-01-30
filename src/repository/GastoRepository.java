@@ -5,6 +5,7 @@ import model.Gasto;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GastoRepository {
@@ -21,6 +22,6 @@ public class GastoRepository {
         }
     }
     public List<Gasto> carregarGastos() {
-        return null;
+        return new ArrayList<>();
     }
 }
